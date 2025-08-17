@@ -3,36 +3,15 @@ import org.gradle.internal.os.OperatingSystem
 import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
 
 plugins {
-  java
+  id("github.mori.java")
+  id("github.mori.paper")
+  id("github.mori.lombok")
   id("xyz.jpenilla.run-paper") version "3.0.0-beta.1"
   id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.3.0"
 }
 
-java {
-  toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-}
-
 group = "github.mori"
 version = "0.1.0-SNAPSHOT"
-
-repositories {
-  maven {
-    name = "papermc"
-    url = uri("https://repo.papermc.io/repository/maven-public/")
-  }
-}
-
-val lombok = "org.projectlombok:lombok:1.18.38"
-
-dependencies {
-  compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
-
-  compileOnly(lombok)
-  annotationProcessor(lombok)
-
-  testCompileOnly(lombok)
-  testAnnotationProcessor(lombok)
-}
 
 interface FsInjected {
   @get:Inject val fs: FileSystemOperations
