@@ -3,3 +3,5 @@ pluginManagement {
 }
 
 rootProject.name = "LiteGUI"
+
+include("api", "plugin", "example")
