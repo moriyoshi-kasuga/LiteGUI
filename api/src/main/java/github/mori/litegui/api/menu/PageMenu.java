@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import net.kyori.adventure.text.Component;
 
 public abstract class PageMenu extends MenuHolder {
-    private int currentPage;
+    protected int currentPage;
 
     public PageMenu(@NotNull InventoryType type) {
         super(type);
@@ -43,6 +43,8 @@ public abstract class PageMenu extends MenuHolder {
 
     public abstract boolean hasPage(int page);
 
-    public abstract int getCurrentPage();
+    public int getCurrentPage() {
+        return currentPage;
+    }
 
 }
