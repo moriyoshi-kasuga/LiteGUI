@@ -58,7 +58,7 @@ For more specific and varied examples, please refer to the files under [example/
 To develop a plugin using LiteGUI, you need to set up your environment as follows:
 
 1. **Add LiteGUI to your server:**
-    - Download the latest `LiteGUI.jar` from the [GitHub Releases](https://github.com/mori/LiteGUI/releases) page.
+    - Download the latest `LiteGUI.jar` from the [GitHub Releases](https://github.com/moriyoshi-kasuga/LiteGUI/releases) page.
     - Place the downloaded `.jar` file into your development server's `plugins` folder.
 
 2. **Add the API to your project's dependencies:**
@@ -75,7 +75,7 @@ To develop a plugin using LiteGUI, you need to set up your environment as follow
 
         ```kotlin
         dependencies {
-            compileOnly("com.github.mori:LiteGUI-api:vX.Y.Z")
+            compileOnly("com.github.moriyoshi-kasuga:LiteGUI-api:vX.Y.Z")
             // ... other dependencies
         }
         ```
