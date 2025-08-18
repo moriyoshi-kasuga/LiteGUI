@@ -4,4 +4,5 @@ module github.mori.litegui {
     requires transitive github.mori.litegui.api;
 
     exports github.mori.litegui;
+    opens github.mori.litegui to org.bukkit;
 }

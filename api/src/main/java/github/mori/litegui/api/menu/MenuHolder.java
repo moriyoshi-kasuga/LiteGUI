@@ -33,7 +33,7 @@ public class MenuHolder extends GuiInventoryHolder {
         this.menuButtons = new MenuButton<?>[size];
     }
 
-    public boolean setButton(int slot, @Nullable MenuButton<MenuHolder> button) {
+    public boolean setButton(int slot, @Nullable MenuButton<?> button) {
         if (!unsetButton(slot)) {
             return false; // Unable to remove existing button
         }
@@ -41,7 +41,8 @@ public class MenuHolder extends GuiInventoryHolder {
             return true; // No button to set
         }
 
-        var added = button.onAdd(this, slot);
+        @SuppressWarnings("unchecked")
+        var added = ((MenuButton<MenuHolder>) button).onAdd(this, slot);
         if (added) {
             getInventory().setItem(slot, button.getIcon());
             menuButtons[slot] = button;

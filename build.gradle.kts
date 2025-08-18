@@ -2,6 +2,7 @@ import xyz.jpenilla.runtask.RunExtension
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
+  id("base")
   id("github.mori.java") apply false
   id("github.mori.paper") apply false
   id("xyz.jpenilla.run-paper") version "3.0.0-beta.1"

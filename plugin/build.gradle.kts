@@ -12,6 +12,9 @@ dependencies {
 
 tasks.jar {
   archiveFileName.set("LiteGUI.jar")
+  from(project(":api").sourceSets.main.get().output) {
+    exclude("module-info.class")
+  }
 }
 
 bukkitPluginYaml {

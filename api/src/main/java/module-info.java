@@ -6,6 +6,8 @@
     requires transitive org.jetbrains.annotations;
 
     exports github.mori.litegui.api;
+    exports github.mori.litegui.api.button;
+    exports github.mori.litegui.api.menu;
 
     opens github.mori.litegui.api;
 

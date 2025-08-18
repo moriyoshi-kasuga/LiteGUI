@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-echo "=== Build and Copy Plugin ==="
+set -euo pipefail
+
+echo "=== Build and Copy API Plugin ==="
 
 ./gradlew plugin:buildAndCopy
+
+echo "=== Build and Copy Example Plugin ==="
+
+./gradlew example:buildAndCopy
 
 echo "=== Run Server ==="
 
