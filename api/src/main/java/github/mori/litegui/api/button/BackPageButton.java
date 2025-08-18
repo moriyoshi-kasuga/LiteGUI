@@ -11,8 +11,8 @@ import github.mori.litegui.api.menu.PageMenu;
 import net.kyori.adventure.text.Component;
 
 public class BackPageButton extends ItemButton<PageMenu> {
-    public static final ItemStack BACK_PAGE_ICON = new ItemBuilder(Material.TERRACOTTA)
-            .name(Component.text("Back Page")).build();
+    public static final ItemStack BACK_PAGE_ICON =
+            new ItemBuilder(Material.TERRACOTTA).name(Component.text("Back Page")).build();
 
     private final Component noBackPageMessage;
 
