@@ -23,3 +23,20 @@ bukkitPluginYaml {
   website = "https://github.com/moriyoshi-kasuga/LiteGUI"
   load = BukkitPluginYaml.PluginLoadOrder.STARTUP
 }
+
+
+interface FsInjected {
+  @get:Inject val fs: FileSystemOperations
+}
+
+tasks.register("buildAndCopy") {
+  dependsOn("build")
+  val injected = project.objects.newInstance<FsInjected>()
+  doLast {
+    injected.fs.delete { delete("run/plugins/LiteGUI.jar") }
+    injected.fs.copy {
+      from("build/libs/LiteGUI.jar")
+      into("../run/plugins")
+    }
+  }
+}

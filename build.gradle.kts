@@ -12,24 +12,7 @@ plugins {
 group = "github.mori"
 version = "0.1.0-SNAPSHOT"
 
-interface FsInjected {
-  @get:Inject val fs: FileSystemOperations
-}
-
-tasks.register("buildAndCopy") {
-  dependsOn(project(":plugin").tasks.getByName("build"))
-  val injected = project.objects.newInstance<FsInjected>()
-  doLast {
-    injected.fs.delete { delete("run/plugins/LiteGUI.jar") }
-    injected.fs.copy {
-      from(project(":plugin").layout.buildDirectory.file("libs/LiteGUI.jar"))
-      into("run/plugins")
-    }
-  }
-}
-
 tasks.runServer {
-  dependsOn("buildAndCopy")
   minecraftVersion("1.21.8")
   jvmArgs("-Dpaper.disablePluginRemapping=true", "-Dfile.encoding=UTF-8", "-Dcom.mojang.eula.agree=true")
 }
