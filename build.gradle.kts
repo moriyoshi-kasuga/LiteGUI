@@ -4,7 +4,6 @@ import org.gradle.internal.os.OperatingSystem
 plugins {
   id("github.mori.java") apply false
   id("github.mori.paper") apply false
-  id("github.mori.lombok") apply false
   id("xyz.jpenilla.run-paper") version "3.0.0-beta.1"
   id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.3.0" apply false
 }
