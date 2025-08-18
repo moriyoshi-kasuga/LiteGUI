@@ -13,6 +13,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class GuiListener implements Listener {
+    private static GuiListener instance = new GuiListener();
+
+    public static GuiListener getInstance() {
+        return instance;
+    }
+
     private GuiInventoryHolder getHolder(@Nullable Inventory inventory) {
         if (inventory == null) {
             return null;

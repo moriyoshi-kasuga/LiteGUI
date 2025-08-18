@@ -2,16 +2,11 @@ package github.mori.litegui;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import github.mori.litegui.api.GuiListener;
+
 public class LiteGUIPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
-    }
-
-    @Override
-    public void onDisable() {
-    }
-
-    @Override
-    public void onLoad() {
+        getServer().getPluginManager().registerEvents(GuiListener.getInstance(), this);
     }
 }
