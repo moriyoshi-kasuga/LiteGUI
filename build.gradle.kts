@@ -9,8 +9,7 @@ plugins {
   id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.3.0" apply false
 }
 
-group = "github.mori"
-version = "0.1.0-SNAPSHOT"
+
 
 tasks.runServer {
   minecraftVersion("1.21.8")
