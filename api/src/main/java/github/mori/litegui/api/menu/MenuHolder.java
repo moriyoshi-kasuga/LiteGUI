@@ -1,5 +1,6 @@
 package github.mori.litegui.api.menu;
 
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -74,6 +75,22 @@ public class MenuHolder extends GuiInventoryHolder {
     public void clearButtons() {
         for (int i = 0; i < menuButtons.length; i++) {
             unsetButton(i);
+        }
+    }
+
+    public @Nullable MenuButton<?> getButton(int slot) {
+        if (slot < 0 || slot >= menuButtons.length) {
+            return null;
+        }
+        return menuButtons[slot];
+    }
+
+    @Override
+    public void onClick(@NotNull InventoryClickEvent event) {
+        @SuppressWarnings("unchecked")
+        var button = (MenuButton<MenuHolder>) getButton(event.getSlot());
+        if (button != null) {
+            button.onClick(this, event);
         }
     }
 
