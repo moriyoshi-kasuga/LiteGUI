@@ -6,14 +6,14 @@ import org.jetbrains.annotations.NotNull;
 
 import github.mori.litegui.api.menu.MenuHolder;
 
-public class CloseButton<MH extends MenuHolder> extends ItemButton<MH> {
+public class CloseButton extends ItemButton<MenuHolder> {
 
     public CloseButton(ItemStack icon) {
         super(icon);
     }
 
     @Override
-    public void onClick(@NotNull MH holder, @NotNull InventoryClickEvent event) {
+    public void onClick(@NotNull MenuHolder holder, @NotNull InventoryClickEvent event) {
         event.getWhoClicked().closeInventory();
     }
 
