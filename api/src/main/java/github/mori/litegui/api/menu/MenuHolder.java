@@ -88,6 +88,9 @@ public class MenuHolder extends GuiInventoryHolder {
 
     @Override
     public void onClick(@NotNull InventoryClickEvent event) {
+        if (event.getClickedInventory() == null || event.getClickedInventory() != getInventory()) {
+            return; // Clicked outside this menu
+        }
         @SuppressWarnings("unchecked")
         var button = (MenuButton<MenuHolder>) getButton(event.getSlot());
         if (button != null) {

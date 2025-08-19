@@ -5,13 +5,19 @@ import java.util.stream.Stream;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import com.example.litegui.menu.ExampleInputMenu;
 import com.example.litegui.menu.SimpleMenu;
 import com.google.common.collect.HashBiMap;
 import github.mori.litegui.api.menu.ListMenu;
 import github.mori.litegui.api.menu.MenuHolder;
 
 public class ExamplePlugin extends JavaPlugin {
+
+    private static ExamplePlugin instance;
+
+    public static ExamplePlugin getInstance() {
+        return instance;
+    }
 
     public static final HashBiMap<String, Supplier<MenuHolder>> INVENTORIES = HashBiMap.create();
 
@@ -22,10 +28,13 @@ public class ExamplePlugin extends JavaPlugin {
                     .map(ItemStack::new).toArray(ItemStack[]::new);
             return new ListMenu(54, Util.mm("<red>Materials</red>"), items);
         });
+        INVENTORIES.put("input", ExampleInputMenu::new);
     }
 
     @Override
     public void onEnable() {
+        instance = this;
+
         var exampleTabExecutor = new ExampleCommand();
         var exampleCommand = getCommand("example");
         if (exampleCommand != null) {
