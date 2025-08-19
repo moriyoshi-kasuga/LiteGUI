@@ -37,6 +37,4 @@ public class SwitchButton<MH extends MenuHolder> extends ItemButton<MH> {
     public void onClick(@NotNull MH holder, @NotNull InventoryClickEvent event) {
         toggle();
     }
-
-
 }

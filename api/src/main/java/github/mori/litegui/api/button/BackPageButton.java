@@ -4,25 +4,20 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import github.mori.litegui.api.ItemBuilder;
+import github.mori.litegui.api.internal.DevUtil;
 import github.mori.litegui.api.menu.PageMenu;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 public class BackPageButton extends ItemButton<PageMenu> {
     public BackPageButton() {
         this(ItemBuilder.ofSkull(
                 "http://textures.minecraft.net/texture/de1dfc11a837111d22b001a14461f9a7fc093522f88c58faefd6adeffcd4e9ab")
-                .name(Component.text("Previous Page")
-                        .color(net.kyori.adventure.text.format.NamedTextColor.GREEN)
-                        .decoration(TextDecoration.ITALIC, false))
-                .build());
+                .name(DevUtil.mm("Previous Page", NamedTextColor.GREEN)).build());
     }
 
     public BackPageButton(@NotNull ItemStack icon) {
-        this(icon,
-                new ItemBuilder(CROSS_ICON).name(Component.text("No previous pages")
-                        .color(net.kyori.adventure.text.format.NamedTextColor.GRAY)
-                        .decoration(TextDecoration.ITALIC, false)).build());
+        this(icon, new ItemBuilder(CROSS_ICON)
+                .name(DevUtil.mm("No previous pages", NamedTextColor.GRAY)).build());
     }
 
     public BackPageButton(@NotNull ItemStack defaultIcon, @NotNull ItemStack noMorePagesIcon) {

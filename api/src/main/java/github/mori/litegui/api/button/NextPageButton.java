@@ -3,26 +3,21 @@ package github.mori.litegui.api.button;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import github.mori.litegui.api.internal.DevUtil;
 import github.mori.litegui.api.ItemBuilder;
 import github.mori.litegui.api.menu.PageMenu;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 public class NextPageButton extends ItemButton<PageMenu> {
     public NextPageButton() {
         this(ItemBuilder.ofSkull(
                 "http://textures.minecraft.net/texture/7c69d41076a8dea4f06d3f1a9ac47cc996988b74a0913ab2ac1a74caf7081918")
-                .name(Component.text("Next Page")
-                        .color(net.kyori.adventure.text.format.NamedTextColor.GREEN)
-                        .decoration(TextDecoration.ITALIC, false))
-                .build());
+                .name(DevUtil.mm("Next Page", NamedTextColor.GREEN)).build());
     }
 
     public NextPageButton(@NotNull ItemStack icon) {
-        this(icon,
-                new ItemBuilder(CROSS_ICON).name(Component.text("No more pages")
-                        .color(net.kyori.adventure.text.format.NamedTextColor.GRAY)
-                        .decoration(TextDecoration.ITALIC, false)).build());
+        this(icon, new ItemBuilder(CROSS_ICON)
+                .name(DevUtil.mm("No more pages", NamedTextColor.GRAY)).build());
     }
 
     public NextPageButton(@NotNull ItemStack defaultIcon, ItemStack noMorePagesIcon) {
