@@ -1,6 +1,5 @@
 package github.mori.litegui.api.menu;
 
-import java.util.List;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -9,32 +8,27 @@ import github.mori.litegui.api.button.MenuButton;
 import github.mori.litegui.api.button.NextPageButton;
 import net.kyori.adventure.text.Component;
 
-public class ListMenu extends PageMenu {
+public abstract class ListMenu extends PageMenu {
 
-    private final MenuButton<?>[] listButtons;
-
-    public ListMenu(@NotNull int size, MenuButton<?> @Nullable [] listButtons) {
+    /**
+     * Creates a new ListMenu with the specified size.
+     *
+     * @param size minimum size of the inventory, must be at least 18
+     */
+    public ListMenu(@NotNull int size) {
         super(size);
-        this.listButtons = listButtons;
     }
 
-    public ListMenu(@NotNull int size, @NotNull List<@Nullable MenuButton<?>> listButtons) {
-        super(size);
-        this.listButtons = listButtons.toArray(new MenuButton[0]);
-    }
 
-    public ListMenu(@NotNull int size, @NotNull Component title,
-            @NotNull MenuButton<?> @Nullable [] listButtons) {
+    /**
+     * Creates a new ListMenu with the specified size and title.
+     *
+     * @param size minimum size of the inventory, must be at least 18
+     * @param title the title of the menu, must not be null
+     */
+    public ListMenu(@NotNull int size, @NotNull Component title) {
         super(size, title);
-        this.listButtons = listButtons;
     }
-
-    public ListMenu(@NotNull int size, @NotNull Component title,
-            @NotNull List<@Nullable MenuButton<?>> listButtons) {
-        super(size, title);
-        this.listButtons = listButtons.toArray(new MenuButton[0]);
-    }
-
 
     @Override
     public void updatePage(int page, @NotNull Inventory inventory) {
@@ -44,9 +38,9 @@ public class ListMenu extends PageMenu {
         setButton(inventory.getSize() - 2, new NextPageButton());
 
         int startIndex = page * (inventory.getSize() - 9);
-        int endIndex = Math.min(startIndex + (inventory.getSize() - 9), listButtons.length);
+        int endIndex = Math.min(startIndex + (inventory.getSize() - 9), getTotalButtons());
         for (int i = startIndex; i < endIndex; i++) {
-            var button = listButtons[i];
+            var button = getListButton(i);
             if (button != null) {
                 setButton(i - startIndex, button);
             }
@@ -55,8 +49,11 @@ public class ListMenu extends PageMenu {
 
     @Override
     public boolean hasPage(int page) {
-        int totalButtons = listButtons.length;
         int buttonsPerPage = getInventory().getSize() - 9; // Assuming last row is reserved for
-        return page >= 0 && page < Math.ceil((double) totalButtons / buttonsPerPage);
+        return page >= 0 && page < Math.ceil((double) getTotalButtons() / buttonsPerPage);
     }
+
+    public abstract int getTotalButtons();
+
+    public abstract @Nullable MenuButton<?> getListButton(int index);
 }
