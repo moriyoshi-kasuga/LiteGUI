@@ -75,7 +75,7 @@ To develop a plugin using LiteGUI, you need to set up your environment as follow
 
         ```kotlin
         dependencies {
-            compileOnly("com.github.moriyoshi-kasuga:LiteGUI:v0.4.0")
+            compileOnly("com.github.moriyoshi-kasuga:LiteGUI:v0.5.0")
             // ... other dependencies
         }
         ```
