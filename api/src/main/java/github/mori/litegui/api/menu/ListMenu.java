@@ -40,7 +40,7 @@ public class ListMenu extends PageMenu {
         inventory.clear();
 
         setButton(inventory.getSize() - 8, new BackPageButton());
-        setButton(inventory.getSize() - 1, new NextPageButton());
+        setButton(inventory.getSize() - 2, new NextPageButton());
 
         int startIndex = page * (inventory.getSize() - 9);
         int endIndex = Math.min(startIndex + (inventory.getSize() - 9), items.length);
