@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import github.mori.litegui.api.button.BackPageButton;
+import github.mori.litegui.api.button.ItemButton;
 import github.mori.litegui.api.button.NextPageButton;
 import net.kyori.adventure.text.Component;
 
@@ -37,7 +38,7 @@ public class ListMenu extends PageMenu {
 
     @Override
     public void updatePage(int page, @NotNull Inventory inventory) {
-        inventory.clear();
+        clearButtons();
 
         setButton(inventory.getSize() - 8, new BackPageButton());
         setButton(inventory.getSize() - 2, new NextPageButton());
@@ -47,7 +48,7 @@ public class ListMenu extends PageMenu {
         for (int i = startIndex; i < endIndex; i++) {
             ItemStack item = items[i];
             if (item != null) {
-                inventory.setItem(i - startIndex, item);
+                setButton(i - startIndex, new ItemButton<>(item));
             }
         }
     }
