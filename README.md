@@ -71,11 +71,11 @@ To develop a plugin using LiteGUI, you need to set up your environment as follow
         }
         ```
 
-    - Add the `LiteGUI` dependency to your `dependencies` block. Remember to replace `vX.Y.Z` with the latest version tag.
+    - Add the `LiteGUI` dependency to your `dependencies` block.
 
         ```kotlin
         dependencies {
-            compileOnly("com.github.moriyoshi-kasuga:LiteGUI:vX.Y.Z")
+            compileOnly("com.github.moriyoshi-kasuga:LiteGUI:v0.4.0")
             // ... other dependencies
         }
         ```
