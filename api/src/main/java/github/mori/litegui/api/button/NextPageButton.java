@@ -1,46 +1,55 @@
 package github.mori.litegui.api.button;
 
-import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import github.mori.litegui.api.ItemBuilder;
 import github.mori.litegui.api.menu.PageMenu;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 
 public class NextPageButton extends ItemButton<PageMenu> {
-    public static final ItemStack NEXT_PAGE_ICON = new ItemBuilder(Material.TERRACOTTA)
-            .name(Component.text("Next Page")).build();
-
-    private final Component noMorePagesMessage;
-
     public NextPageButton() {
-        this(NEXT_PAGE_ICON, Component.text("No more pages available."));
-    }
-
-    public NextPageButton(@Nullable Component noMorePagesMessage) {
-        this(NEXT_PAGE_ICON, noMorePagesMessage);
+        this(ItemBuilder.ofSkull(
+                "http://textures.minecraft.net/texture/7c69d41076a8dea4f06d3f1a9ac47cc996988b74a0913ab2ac1a74caf7081918")
+                .name(Component.text("Next Page")
+                        .color(net.kyori.adventure.text.format.NamedTextColor.GREEN)
+                        .decoration(TextDecoration.ITALIC, false))
+                .build());
     }
 
     public NextPageButton(@NotNull ItemStack icon) {
-        this(icon, Component.text("No more pages available."));
+        this(icon,
+                new ItemBuilder(CROSS_ICON).name(Component.text("No more pages")
+                        .color(net.kyori.adventure.text.format.NamedTextColor.GRAY)
+                        .decoration(TextDecoration.ITALIC, false)).build());
     }
 
-    public NextPageButton(@NotNull ItemStack icon, @Nullable Component noMorePagesMessage) {
-        super(icon);
-        this.noMorePagesMessage = noMorePagesMessage;
+    public NextPageButton(@NotNull ItemStack defaultIcon, ItemStack noMorePagesIcon) {
+        super(defaultIcon);
+        this.defaultIcon = defaultIcon;
+        this.noMorePagesIcon = noMorePagesIcon;
     }
+
+    private final ItemStack defaultIcon;
+    private final ItemStack noMorePagesIcon;
 
     @Override
     public void onClick(@NotNull PageMenu holder, @NotNull InventoryClickEvent event) {
         int nextPage = holder.getCurrentPage() + 1;
         if (holder.hasPage(nextPage)) {
             holder.setCurrentPage(nextPage);
-        } else if (this.noMorePagesMessage != null) {
-            event.getWhoClicked().sendMessage(this.noMorePagesMessage);
         }
+    }
+
+    @Override
+    public boolean onAdd(PageMenu holder, int slot) {
+        if (holder.hasPage(holder.getCurrentPage() + 1)) {
+            setIcon(defaultIcon);
+        } else {
+            setIcon(noMorePagesIcon);
+        }
+        return super.onAdd(holder, slot);
     }
 
 }

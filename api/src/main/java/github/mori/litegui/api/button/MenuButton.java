@@ -8,8 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import github.mori.litegui.api.menu.MenuHolder;
 
 public interface MenuButton<MH extends MenuHolder> {
-    default void onClick(@NotNull MH holder, @NotNull InventoryClickEvent event) {
-    }
+    default void onClick(@NotNull MH holder, @NotNull InventoryClickEvent event) {}
 
     default @Nullable ItemStack getIcon() {
         return null;

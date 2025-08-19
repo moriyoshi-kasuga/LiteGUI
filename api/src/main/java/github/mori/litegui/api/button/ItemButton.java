@@ -5,9 +5,14 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.bukkit.inventory.ItemStack;
+import github.mori.litegui.api.ItemBuilder;
 import github.mori.litegui.api.menu.MenuHolder;
 
 public class ItemButton<MH extends MenuHolder> implements MenuButton<MH> {
+    public static final ItemStack CROSS_ICON = ItemBuilder.ofSkull(
+            "http://textures.minecraft.net/texture/5b30507783c37db3a3092cad043e57951aa8b4c6ea9acc47d604b7eb5aea028")
+            .build();
+
     private final WeakHashMap<MH, Set<Integer>> holders = new WeakHashMap<>();
 
     protected ItemStack icon;

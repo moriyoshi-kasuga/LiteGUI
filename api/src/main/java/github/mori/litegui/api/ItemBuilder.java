@@ -1,11 +1,14 @@
 package github.mori.litegui.api;
 
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Consumer;
-
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -14,7 +17,6 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.jetbrains.annotations.NotNull;
-
 import net.kyori.adventure.text.Component;
 
 public final class ItemBuilder {
@@ -28,18 +30,36 @@ public final class ItemBuilder {
         this.itemStack = Objects.requireNonNull(itemStack, "ItemStack cannot be null");
     }
 
+    public static ItemBuilder ofSkull(@NotNull String skinUrl) {
+        try {
+            return ofSkull(URI.create(skinUrl).toURL());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid skin URL: " + skinUrl, e);
+        }
+    }
+
+    public static ItemBuilder ofSkull(@NotNull URL skinUrl) {
+        return new ItemBuilder(Material.PLAYER_HEAD).changeItemMeta(meta -> {
+            var skullMeta = (org.bukkit.inventory.meta.SkullMeta) meta;
+            var profile = Bukkit.createProfile(UUID.randomUUID());
+            var textures = profile.getTextures();
+            textures.setSkin(skinUrl);
+            profile.setTextures(textures);
+            skullMeta.setPlayerProfile(profile);
+        });
+    }
+
     public ItemBuilder change(final Consumer<? super ItemStack> consumer) {
         consumer.accept(this.itemStack);
         return this;
     }
 
     public ItemBuilder changeItemMeta(final Consumer<? super ItemMeta> consumer) {
-        return change(
-                i -> {
-                    final ItemMeta meta = i.getItemMeta();
-                    consumer.accept(meta);
-                    i.setItemMeta(meta);
-                });
+        return change(i -> {
+            final ItemMeta meta = i.getItemMeta();
+            consumer.accept(meta);
+            i.setItemMeta(meta);
+        });
     }
 
     public ItemBuilder amount(final int amount) {
@@ -59,9 +79,8 @@ public final class ItemBuilder {
     }
 
     public ItemBuilder durability(final int durability) {
-        return changeItemMeta(
-                meta -> ((Damageable) meta)
-                        .setDamage(Math.max(0, this.itemStack.getType().getMaxDurability() - durability)));
+        return changeItemMeta(meta -> ((Damageable) meta)
+                .setDamage(Math.max(0, this.itemStack.getType().getMaxDurability() - durability)));
     }
 
     public ItemBuilder name(final Component displayName) {
@@ -137,8 +156,7 @@ public final class ItemBuilder {
         return unEnchant(Enchantment.LURE).unFlags(ItemFlag.HIDE_ENCHANTS);
     }
 
-    public ItemBuilder customModelData(
-            final Consumer<CustomModelDataComponent> consumer) {
+    public ItemBuilder customModelData(final Consumer<CustomModelDataComponent> consumer) {
         return changeItemMeta(meta -> {
             var data = meta.getCustomModelDataComponent();
             consumer.accept(data);
