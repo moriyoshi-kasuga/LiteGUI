@@ -4,9 +4,6 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.github.mori"
-version = "0.1.2"
-
 publishing {
     publications {
         create<MavenPublication>("maven") {
