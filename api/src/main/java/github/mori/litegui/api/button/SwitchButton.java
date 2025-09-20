@@ -18,7 +18,7 @@ public class SwitchButton<MH extends MenuHolder> extends ItemButton<MH> {
 
     public SwitchButton(@NotNull ItemStack defaultItem, @NotNull ItemStack toggledItem,
             boolean initialState) {
-        super(defaultItem);
+        super(initialState ? toggledItem : defaultItem);
         this.state = initialState;
         this.defaultItem = defaultItem;
         this.toggledItem = toggledItem;
